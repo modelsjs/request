@@ -1,14 +1,15 @@
 name: Build DuckyDocs
 
 on:
-  [pull_request]
+  pull_request
 
 env:
-  LINT_OUTPUT: ~/lint
-  BUILD_OUTPUT: ~/docs
+  LINT_ROOT: /tmp/lint
+  BUILD_ROOT: /tmp/docs
+  LANG: en
 
 jobs:
-  build-duckydocs:
+  build-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -26,12 +27,30 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         continue-on-error: true
-        run: npm install
+        run: npm list
+      - run: npm install
       - run: npm run lint
       - run: npm run build
       - uses: actions/upload-artifact@v3
         with:
           name: docs
-          path: ${{ env.BUILD_OUTPUT }}
+          path: ${{ env.BUILD_ROOT }}
           if-no-files-found: error
           retention-days: 7
+  upload-to-storage:
+    needs: [ build-docs ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: docs
+          path: docs
+      - name: Upload S3
+        uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: ${{ secrets.PROD_AWS_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}}
+          AWS_REGION: eu-central-1
+          DEST_DIR: 'rev/${{ github.sha }}'
+          SOURCE_DIR: 'docs'
