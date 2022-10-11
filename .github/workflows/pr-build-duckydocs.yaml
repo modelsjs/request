@@ -5,14 +5,12 @@ on:
 
 env:
   LINT_ROOT: /tmp/lint
-  BUILD_ROOT: "/tmp/docs/${{ github.sha }}"
-  LANG: en
+  BUILD_ROOT: /tmp/docs
+  BUILD_DIR: /tmp/docs/en
 
 jobs:
   build-docs:
     runs-on: ubuntu-latest
-    env:
-      BUILD_DIR: "${{ env.BUILD_ROOT }}/${{ env.LANG }}"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
