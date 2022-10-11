@@ -1,7 +1,15 @@
 name: Build DuckyDocs
 
 on:
-  [pull_request, workflow_call]
+  pull_request:
+  workflow_call:
+    secrets:
+      PROD_AWS_BUCKET:
+        required: true
+      PROD_AWS_KEY_ID:
+        required: true
+      PROD_AWS_SECRET_ACCESS_KEY:
+        required: true
 
 env:
   LINT_ROOT: /tmp/lint
