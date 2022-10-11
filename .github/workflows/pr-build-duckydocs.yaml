@@ -26,7 +26,8 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         continue-on-error: true
-        run: npm install
+        run: npm list
+      - run: npm install
       - run: npm run lint
       - run: npm run build
       - uses: actions/upload-artifact@v3
