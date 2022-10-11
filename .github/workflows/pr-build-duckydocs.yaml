@@ -4,8 +4,8 @@ on:
   [pull_request]
 
 env:
-  LINT_OUTPUT: ../lint
-  BUILD_OUTPUT: ../docs
+  LINT_OUTPUT: /tmp/lint
+  BUILD_OUTPUT: /tmp/docs
 
 jobs:
   build-duckydocs:
