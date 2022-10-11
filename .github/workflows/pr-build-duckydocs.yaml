@@ -42,16 +42,16 @@ jobs:
     needs: [ build-docs ]
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Upload to ${{ secrets.PROD_AWS_BUCKET }}"
       - uses: actions/download-artifact@v3
         with:
           name: docs
           path: docs
       - name: Upload S3
-        uses: shallwefootball/upload-s3-action@v1.1.3
-        with:
-          aws_key_id: ${{ secrets.PROD_AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ secrets.PROD_AWS_BUCKET }}
-          source_dir: 'docs'
-          destination_dir: 'rev/${{ github.sha }}'
+        uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: ${{ secrets.PROD_AWS_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}}
+          AWS_REGION: eu-central-1
+          DEST_DIR: 'rev/${{ github.sha }}'
+          SOURCE_DIR: 'docs'
