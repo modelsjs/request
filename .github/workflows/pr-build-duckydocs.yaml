@@ -8,7 +8,7 @@ env:
   BUILD_OUTPUT: /tmp/docs
 
 jobs:
-  build-duckydocs:
+  build-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,3 +36,19 @@ jobs:
           path: ${{ env.BUILD_OUTPUT }}
           if-no-files-found: error
           retention-days: 7
+  upload-to-storage:
+    needs: [ build-docs ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: docs
+          path: docs
+      - name: Upload S3
+        uses: shallwefootball/upload-s3-action@v1.1.3
+        with:
+          aws_key_id: ${{ secrets.PROD_AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.PROD_AWS_BUCKET }}
+          source_dir: 'docs'
+          destination_dir: 'rev/${{ github.head_ref }}'
