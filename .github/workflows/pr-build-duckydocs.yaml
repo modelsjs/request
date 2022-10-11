@@ -6,6 +6,8 @@ on:
 env:
   LINT_OUTPUT: /tmp/lint
   BUILD_OUTPUT: /tmp/docs
+  AWS_DEFAULT_REGION: eu-central-1
+  AWS_REGION: eu-central-1
 
 jobs:
   build-docs:
