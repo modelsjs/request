@@ -27,10 +27,8 @@ jobs:
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         continue-on-error: true
         run: npm install
-      - run: echo $BUILD_OUTPUT
       - run: npm run lint
       - run: npm run build
-      - run: ls ${{ env.BUILD_OUTPUT }}
       - uses: actions/upload-artifact@v3
         with:
           name: docs
