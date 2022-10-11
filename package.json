@@ -1,0 +1,11 @@
+{
+  "name": "@modelsjs/request",
+  "version": "0.0.1",
+  "dependencies": {
+    "@doc-tools/docs": "^1.27.0"
+  },
+  "scripts": {
+    "lint": "yfm -i . -o $LINT_OUTPUT --lang en",
+    "build": "yfm -i . -o $BUILD_OUTPUT --output-format md --add-map-file --lang en --lint-disabled"
+  }
+}
