@@ -40,6 +40,7 @@ jobs:
     needs: [ build-docs ]
     runs-on: ubuntu-latest
     steps:
+      - run: echo "Upload to ${{ secrets.PROD_AWS_BUCKET }}"
       - uses: actions/download-artifact@v3
         with:
           name: docs
@@ -51,4 +52,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.PROD_AWS_BUCKET }}
           source_dir: 'docs'
-          destination_dir: 'rev/${{ github.head_ref }}'
+          destination_dir: 'rev/${{ github.sha }}'
