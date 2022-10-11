@@ -1,12 +1,12 @@
 name: Build DuckyDocs
 
 on:
-  [pull_request]
+  pull_request
 
 env:
   LINT_ROOT: /tmp/lint
   BUILD_ROOT: /tmp/docs
-  BUILD_DIR: /tmp/docs/en
+  LANG: en
 
 jobs:
   build-docs:
@@ -31,8 +31,6 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm run build
-      - run: mv "$BUILD_DIR/files.json" "$BUILD_ROOT/files.json"
-      - run: mv "$BUILD_DIR/.yfm" "$BUILD_ROOT/.yfm" || true
       - uses: actions/upload-artifact@v3
         with:
           name: docs
