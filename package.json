@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "yfm -i . -o $LINT_ROOT --lang en",
     "build": "npm run build:yfm && npm run build:mv",
-    "build:yfm": "yfm -i . -o $BUILD_ROOT/$LANG --output-format md --add-map-file --lang en --lint-disabled",
+    "build:yfm": "yfm -i . -o $BUILD_ROOT/$LANG --output-format md --add-map-file --lang en --lint-disabled --remove-hidden-toc-items",
     "build:mv": "mv $BUILD_ROOT/$LANG/files.json $BUILD_ROOT/files.json && mv $BUILD_ROOT/$LANG/.yfm $BUILD_ROOT/.yfm"
   }
 }
