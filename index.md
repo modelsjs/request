@@ -1,3 +1,3 @@
 # {{Project}} {{Module}} module
 
-{{ include notitle ./Readme.md }}
+{% include notitle [x](./Readme.md) %}
