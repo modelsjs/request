@@ -13,10 +13,9 @@ env:
 jobs:
   build-docs:
     uses: ./.github/workflows/build-duckydocs.yaml
-    secrets:
-      AWS_S3_BUCKET: ${{ secrets.PROD_AWS_BUCKET }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY}}
+    with:
+      rev: "${{ github.sha }}"
+    secrets: inherit
 
   update-head:
     needs: [ build-docs ]
