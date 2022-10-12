@@ -1,5 +1,5 @@
-# {{Project}} {{Module}} module
+# ModelsJS Request module
 
-This module is core part of {{Project}}.
+This module is core part of ModelsJS.
 
 Read more in [#{T}](./Concepts.md)
