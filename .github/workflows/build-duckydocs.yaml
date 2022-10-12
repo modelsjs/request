@@ -16,7 +16,7 @@ on:
         required: true
 
 env:
-  REV: "pr-${{ github.ref_name }}"
+  REV: "pr-${{ github.event.pull_request.number }}"
   LINT_ROOT: /tmp/lint
   BUILD_ROOT: /tmp/docs
   LANG: en
@@ -60,7 +60,7 @@ jobs:
           path: docs
       - id: rev-name
         run: |
-            [ -n "${{ inputs.rev }}" ] && echo "::set-output name=rev::${{ inputs.rev }}" || echo "::set-output name=rev::${REV/\/merge/}"
+            [ -n "${{ inputs.rev }}" ] && echo "::set-output name=rev::${{ inputs.rev }}" || echo "::set-output name=rev::$REV"
       - name: Upload S3
         uses: jakejarvis/s3-sync-action@master
         env:
