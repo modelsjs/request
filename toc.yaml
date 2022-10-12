@@ -1,5 +1,8 @@
 title: ModelsJS Request module
 href: index.md
 items:
+  - name: Root
+    href: Readme.md
+    hidden: true
   - name: Concepts
     href: Concepts.md
