@@ -60,7 +60,7 @@ jobs:
           path: docs
       - id: rev-name
         run: |
-            [ -n "${{ inputs.rev }}" ] && echo "::set-output name=rev::${{ inputs.rev }}" || echo "::set-output name=rev::$REV"
+            [ -n "${{ inputs.rev }}" ] && echo "::set-output name=rev::${{ inputs.rev }}" || echo "::set-output name=rev::${REV/\/merge/}"
       - name: Upload S3
         uses: jakejarvis/s3-sync-action@master
         env:
