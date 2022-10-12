@@ -22,7 +22,6 @@ env:
 
 jobs:
   upload-to-storage:
-    needs: [ build-docs ]
     runs-on: ubuntu-latest
     steps:
       - run: mkdir -p void
