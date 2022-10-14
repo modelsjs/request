@@ -4,5 +4,3 @@ items:
   - name: Root
     href: Readme.md
     hidden: true
-  - name: Concepts
-    href: Concepts.md
