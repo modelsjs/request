@@ -6,8 +6,9 @@
   },
   "scripts": {
     "lint": "yfm -i . -o $LINT_ROOT --lang en",
-    "build": "npm run build:yfm && npm run build:mv",
+    "build": "npm run build:yfm && npm run build:files && npm run build:mv",
     "build:yfm": "yfm -i . -o $BUILD_ROOT/$LANG --output-format md --add-map-file --lang en --lint-disabled",
-    "build:mv": "mv $BUILD_ROOT/$LANG/files.json $BUILD_ROOT/files.json && mv $BUILD_ROOT/$LANG/.yfm $BUILD_ROOT/.yfm"
+    "build:files": "node -pe \"JSON.stringify({ files: require('$BUILD_ROOT/$LANG/files.json').files.map(url => '$LANG/' + url) }, null, 2)\" > $BUILD_ROOT/files.json",
+    "build:mv": "rm $BUILD_ROOT/$LANG/files.json && mv $BUILD_ROOT/$LANG/.yfm $BUILD_ROOT/.yfm"
   }
 }

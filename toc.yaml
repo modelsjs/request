@@ -6,3 +6,5 @@ items:
     hidden: true
   - name: Concepts
     href: Concepts.md
+  - name: Indexable
+    href: Indexable.md
