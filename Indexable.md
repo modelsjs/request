@@ -5,3 +5,4 @@ Check that AddIndexItem works.
 Check that DeleteIndexItem works.
 
 Change hash 1.
+Change hash 2.
